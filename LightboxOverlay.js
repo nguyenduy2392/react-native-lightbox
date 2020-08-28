@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     width: WINDOW_WIDTH,
+    height: 60,
     backgroundColor: 'transparent',
   },
   closeButton: {
