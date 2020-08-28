@@ -30,6 +30,13 @@ const styles = StyleSheet.create({
     width: WINDOW_WIDTH,
     backgroundColor: 'transparent',
   },
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: WINDOW_WIDTH,
+    backgroundColor: 'transparent',
+  },
   closeButton: {
     fontSize: 35,
     color: 'white',
@@ -61,6 +68,7 @@ export default class LightboxOverlay extends Component {
     backgroundColor: PropTypes.string,
     isOpen:          PropTypes.bool,
     renderHeader:    PropTypes.func,
+    renderFooter:    PropTypes.func,
     onOpen:          PropTypes.func,
     onClose:         PropTypes.func,
     willClose:         PropTypes.func,
@@ -180,6 +188,7 @@ export default class LightboxOverlay extends Component {
     const {
       isOpen,
       renderHeader,
+      renderFooter,
       swipeToDismiss,
       origin,
       backgroundColor,
@@ -225,6 +234,7 @@ export default class LightboxOverlay extends Component {
         </TouchableOpacity>
       )
     )}</Animated.View>);
+    const footer = renderFooter ?(<Animated.View style={[styles.footer, lightboxOpacityStyle]}>{renderFooter()}</Animated.View>) : null;
     const content = (
       <Animated.View style={[openStyle, dragStyle]} {...handlers}>
         {this.props.children}
@@ -246,7 +256,9 @@ export default class LightboxOverlay extends Component {
         {background}
         {content}
         {header}
+        {footer}
       </Modal>
     );
   }
 }
+
