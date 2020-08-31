@@ -105,7 +105,10 @@ export default class Lightbox extends Component {
   }
 
   close = () => {
-    throw new Error('Lightbox.close method is deprecated. Use renderHeader(close) prop instead.')
+    if (this.overlayRef) {
+      this.overlayRef.close()
+    }
+    // throw new Error('Lightbox.close method is deprecated. Use renderHeader(close) prop instead.')
   }
 
   onClose = () => {
@@ -118,6 +121,10 @@ export default class Lightbox extends Component {
       routes.pop();
       this.props.navigator.immediatelyResetRouteStack(routes);
     }
+  }
+
+  setRef = (ref) => {
+    this.overlayRef = ref
   }
 
   render() {
@@ -137,7 +144,7 @@ export default class Lightbox extends Component {
             {this.props.children}
           </TouchableHighlight>
         </Animated.View>
-        {this.props.navigator ? false : <LightboxOverlay {...this.getOverlayProps()} />}
+        {this.props.navigator ? false : <LightboxOverlay ref={this.setRef} {...this.getOverlayProps()} />}
       </View>
     );
   }
